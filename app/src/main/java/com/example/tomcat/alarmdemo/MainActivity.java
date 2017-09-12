@@ -14,6 +14,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity
 {
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final int    ALRM_PERIOD = 1000 * 5;
 
     TextView    tvStartDT, tvAlarmDT;
     Button      btnStart;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity
     Handler     handler=null;
     Runnable    runnable;
     private static boolean refacetFlag = true;
+    private static boolean bgFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +33,35 @@ public class MainActivity extends AppCompatActivity
         initControl();
     }
 
+    @Override
+    protected void onStart() {
+        bgFlag = false;
+        refacetFlag = true;
+        btnStart.setText("Sart");
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop()
+    {
+        bgFlag = true;
+        super.onStop();
+    }
+
     public void onClickRunning(View view)
     {
-        Log.d(TAG, "onClickRunning()");
+        Log.d(TAG, "onClickRunning(), refacetFlag: " + refacetFlag);
 
         if (refacetFlag) {
             handler.postDelayed(runnable, 2000);
             refacetFlag = false;
+            btnStart.setText("Stop");
         }
         else
         {
             handler.removeCallbacks(runnable);
             refacetFlag = true;
+            btnStart.setText("Sart");
         }
         //initHandle(true);
     }
@@ -91,7 +110,11 @@ public class MainActivity extends AppCompatActivity
 
                     if (runFlag) {
                         //tvAlarmDT.setText(getCurrentDT());
-                        handler.postDelayed(runnable, 3000);
+                        handler.postDelayed(runnable, ALRM_PERIOD);
+                    }
+
+                    if (bgFlag) {
+                        handler.removeCallbacks(runnable);
                     }
                 }
             };

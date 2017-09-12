@@ -4,4 +4,5 @@
     <string name="button">Button</string>
 
     <string name="long_lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu aliquet sem. Mauris tincidunt posuere erat vel dignissim. Donec condimentum, ligula id lobortis congue, leo nunc suscipit dui, non molestie ligula risus et velit. Pellentesque consectetur, ante molestie dapibus tincidunt, ipsum ipsum pretium turpis, eget elementum nulla arcu sed leo</string>
+    <string name="start">Start</string>
 </resources>
