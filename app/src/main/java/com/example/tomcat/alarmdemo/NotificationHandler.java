@@ -174,7 +174,8 @@ public class NotificationHandler
         {
             // Prepare intent which is triggerd if the notification button is pressed
             Intent xIntent = new Intent(context, MainActivity.class);
-            PendingIntent pIntent = PendingIntent.getActivities(context, 0, new Intent[]{xIntent}, 0);
+            PendingIntent pIntent = PendingIntent.getActivities(context, 0,
+                    new Intent[]{xIntent}, 0);
 
             // Building the notification
             NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context)
