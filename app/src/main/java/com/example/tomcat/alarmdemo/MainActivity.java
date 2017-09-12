@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity
 
     Handler     handler=null;
     Runnable    runnable;
-    private static boolean runFlag = true;
+    private static boolean refacetFlag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +35,14 @@ public class MainActivity extends AppCompatActivity
     {
         Log.d(TAG, "onClickRunning()");
 
-        if (runFlag) {
+        if (refacetFlag) {
             handler.postDelayed(runnable, 2000);
-            runFlag = false;
+            refacetFlag = false;
+        }
+        else
+        {
+            handler.removeCallbacks(runnable);
+            refacetFlag = true;
         }
         //initHandle(true);
     }
