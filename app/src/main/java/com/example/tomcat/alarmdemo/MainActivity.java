@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity
             handler.postDelayed(runnable, 2000);
             refacetFlag = false;
             btnStart.setText("Stop");
+            bgFlag = false;
         }
         else
         {
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity
         tvStartDT.setText(getCurrentDT());
         tvAlarmDT.setTextSize(20.0f);
         initHandle(true);
+        bgFlag = false;
         //handler.postDelayed(runnable, 2000);
     }
 
@@ -105,13 +107,14 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void run() {
                     tvAlarmDT.setText(getCurrentDT());
+                    Log.i(TAG, "bgFlag: " + bgFlag);
 
                     nHandler.createSimpleNotification(getBaseContext());
 
-                    if (runFlag) {
+                    //if (runFlag) {
                         //tvAlarmDT.setText(getCurrentDT());
                         handler.postDelayed(runnable, ALRM_PERIOD);
-                    }
+                    //}
 
                     if (bgFlag) {
                         handler.removeCallbacks(runnable);

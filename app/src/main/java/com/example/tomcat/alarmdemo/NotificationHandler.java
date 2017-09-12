@@ -60,7 +60,8 @@ public class NotificationHandler
                 .setContentTitle("I'm a simple notification")
                 .setContentText("I'm the next of the simple notification")
                 .setContentIntent(resultPending)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
+                .setVibrate(new long[]{1000, 1000, 1000, 1000});
 
         // mId allows you to update the notification later on.
         mNotificationManager.notify(10, mBuilder.build());
