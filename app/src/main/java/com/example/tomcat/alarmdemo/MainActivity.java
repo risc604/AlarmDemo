@@ -32,15 +32,18 @@ public class MainActivity extends AppCompatActivity
     private void initView()
     {
         tvStartDT = findViewById(R.id.tvStartDT);
+        tvStartDT.setText("");
         tvAlarmDT = findViewById(R.id.tvAlarmDT);
+        tvAlarmDT.setText("");
         btnStart = findViewById(R.id.btnStart);
+
     }
 
     private void initControl()
     {
         tvStartDT.setText(getCurrentDT());
         tvAlarmDT.setTextSize(20.0f);
-        initHandle();
+        initHandle(true);
         handler.postDelayed(runnable, 2000);
     }
 
@@ -55,14 +58,19 @@ public class MainActivity extends AppCompatActivity
        return stringDT;
     }
 
-    private void initHandle()
+    private void initHandle(final boolean runFlag)
     {
+        final NotificationHandler nHandler = NotificationHandler.getInstance(getBaseContext());
         handler = new Handler();
         runnable = new Runnable() {
             @Override
             public void run() {
                 tvAlarmDT.setText(getCurrentDT());
-                handler.postDelayed(runnable, 3000);
+
+                nHandler.createSimpleNotification(getBaseContext());
+
+                if (runFlag)
+                    handler.postDelayed(runnable, 3000);
             }
         };
     }
