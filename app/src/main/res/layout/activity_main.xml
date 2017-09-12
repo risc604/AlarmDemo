@@ -47,6 +47,7 @@
         android:layout_height="50dp"
         android:layout_marginEnd="112dp"
         android:layout_marginStart="113dp"
+        android:onClick="onClickRunning"
         android:text="@string/button"
         app:layout_constraintBottom_toTopOf="@+id/tvAlarmDT"
         app:layout_constraintEnd_toEndOf="parent"
