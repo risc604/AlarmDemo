@@ -111,13 +111,11 @@ public class MainActivity extends AppCompatActivity
 
                     nHandler.createSimpleNotification(getBaseContext());
 
-                    //if (runFlag) {
-                        //tvAlarmDT.setText(getCurrentDT());
-                        handler.postDelayed(runnable, ALRM_PERIOD);
-                    //}
-
                     if (bgFlag) {
                         handler.removeCallbacks(runnable);
+                    }
+                    else {
+                        handler.postDelayed(runnable, ALRM_PERIOD);
                     }
                 }
             };
