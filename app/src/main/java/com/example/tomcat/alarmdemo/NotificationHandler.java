@@ -61,7 +61,8 @@ public class NotificationHandler
                 .setContentText("I'm the next of the simple notification")
                 .setContentIntent(resultPending)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
-                .setVibrate(new long[]{1000, 1000});
+                //.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setVibrate(new long[]{0, 5000});
                 //.setVibrate(new long[]{1000, 1000, 1000, 1000});
 
 

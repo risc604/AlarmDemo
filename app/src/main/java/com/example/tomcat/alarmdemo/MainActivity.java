@@ -14,7 +14,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity
 {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private static final int    ALRM_PERIOD = 1000 * 5;
+    private static final int    ALRM_PERIOD = 1000 * 60;
 
     TextView    tvStartDT, tvAlarmDT;
     Button      btnStart;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "onClickRunning(), refacetFlag: " + refacetFlag);
 
         if (refacetFlag) {
-            handler.postDelayed(runnable, 2000);
+            handler.postDelayed(runnable, 1*1000);
             refacetFlag = false;
             btnStart.setText("Stop");
             bgFlag = false;
@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity
                         handler.removeCallbacks(runnable);
                     }
                     else {
+                        Log.i(TAG, "run(), Alarm set !! ");
                         handler.postDelayed(runnable, ALRM_PERIOD);
                     }
                 }
