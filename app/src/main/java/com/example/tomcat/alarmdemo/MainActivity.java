@@ -15,7 +15,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity
 {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private static final int    ALRM_PERIOD = 1000 * 60;
+    private static final int    ALRM_PERIOD = 1000 * 60 * 2;
 
     TextView    tvStartDT, tvAlarmDT;
     Button      btnStart;
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity
         NotificationHandler nHandler = NotificationHandler.getInstance(getBaseContext());
         tvAlarmDT.setTextColor(Color.RED);
         tvAlarmDT.setText(getCurrentDT());
-        nHandler.createSimpleNotification(getBaseContext());
+        nHandler.createSimpleNotification(getBaseContext(), bgFlag);
 
         Log.i(TAG, "eventTodo(), bgFlag: " + bgFlag);
 

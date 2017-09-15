@@ -11,6 +11,7 @@ import android.media.RingtoneManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.net.URI;
@@ -25,6 +26,7 @@ import java.util.Random;
 
 public class NotificationHandler
 {
+    private static final String TAG = NotificationHandler.class.getSimpleName();
     private static NotificationHandler  nHandler;
     private static NotificationManager  mNotificationManager;
 
@@ -41,7 +43,7 @@ public class NotificationHandler
         return nHandler;
     }
 
-    public void createSimpleNotification(Context context)
+    public void createSimpleNotification(Context context, boolean flag)
     {
         // Creates an explicit intent for an Activity
         Intent resultIntent = new Intent(context, MainActivity.class);
@@ -66,13 +68,19 @@ public class NotificationHandler
                 .setVibrate(new long[]{0, 5000, 50000, 5000});
                 //.setVibrate(new long[]{1000, 1000, 1000, 1000});
 
-        Notification notification = mBuilder.build();
-        notification.flags |= Notification.FLAG_INSISTENT;
-
-        // mId allows you to update the notification later on.
-        //mNotificationManager.notify(10, mBuilder.build());
-        mNotificationManager.notify(10, notification);
-
+        Log.d(TAG, "createSimpleNotification(), flag: " + flag);
+        if (flag)
+        {
+            // mId allows you to update the notification later on.
+            mNotificationManager.notify(10, mBuilder.build());
+        }
+        else
+        {
+            // sample.
+            Notification notification = mBuilder.build();
+            notification.flags |= Notification.FLAG_INSISTENT;
+            mNotificationManager.notify(10, notification);
+        }
     }
 
     public void createExpandableNotification(Context context)
@@ -105,7 +113,6 @@ public class NotificationHandler
             Toast.makeText(context, "Can't show", Toast.LENGTH_LONG).show();
         }
     }
-
 
     public void createProgressNotification(final Context context)
     {
