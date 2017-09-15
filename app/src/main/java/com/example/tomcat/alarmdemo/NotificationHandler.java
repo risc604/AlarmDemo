@@ -1,6 +1,7 @@
 package com.example.tomcat.alarmdemo;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -62,12 +63,16 @@ public class NotificationHandler
                 .setContentIntent(resultPending)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
                 //.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setVibrate(new long[]{0, 5000});
+                .setVibrate(new long[]{0, 5000, 50000, 5000});
                 //.setVibrate(new long[]{1000, 1000, 1000, 1000});
 
+        Notification notification = mBuilder.build();
+        notification.flags |= Notification.FLAG_INSISTENT;
 
         // mId allows you to update the notification later on.
-        mNotificationManager.notify(10, mBuilder.build());
+        //mNotificationManager.notify(10, mBuilder.build());
+        mNotificationManager.notify(10, notification);
+
     }
 
     public void createExpandableNotification(Context context)
