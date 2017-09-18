@@ -18,12 +18,13 @@ public class MainActivity extends AppCompatActivity
     private static final int    ALRM_PERIOD = 1000 * 60 * 2;
 
     TextView    tvStartDT, tvAlarmDT;
-    Button      btnStart;
+    Button      btnStart, btnBleAlarm;
 
     Handler     handler=null;
     Runnable    runnable;
     private static boolean refacetFlag = true;
     private static boolean bgFlag = false;
+    private long alarmPeriod=0L;
     int colorKeep;
 
     @Override
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity
 
         if (refacetFlag) {
             //handler.postDelayed(runnable, 1*1000);
+            setAlrmPeriod(1000*60*1);
             handler.post(runnable);
             refacetFlag = false;
             btnStart.setText("Stop");
@@ -81,6 +83,26 @@ public class MainActivity extends AppCompatActivity
         //initHandle(true);
     }
 
+    public void onClickbleAlarm(View view)
+    {
+        if (refacetFlag) {
+            Log.d(TAG, "onClickbleAlarm(), refacetFlag: " + refacetFlag);
+            //handler.postDelayed(runnable, 1*1000);
+            getCurrentDT();
+            setAlrmPeriod(1000*60*1);
+            handler.postDelayed(runnable, 1000*60*2);
+            refacetFlag = false;
+            btnStart.setText("Stop");
+            bgFlag = false;
+        }
+        else
+        {
+            handler.removeCallbacks(runnable);
+            refacetFlag = true;
+            btnStart.setText("Sart");
+        }
+    }
+
     private void initView()
     {
         tvStartDT = findViewById(R.id.tvStartDT);
@@ -88,6 +110,7 @@ public class MainActivity extends AppCompatActivity
         tvAlarmDT = findViewById(R.id.tvAlarmDT);
         tvAlarmDT.setText("");
         btnStart = findViewById(R.id.btnStart);
+        btnBleAlarm = findViewById(R.id.button_BLE);
 
     }
 
@@ -123,13 +146,13 @@ public class MainActivity extends AppCompatActivity
             runnable = new Runnable() {
                 @Override
                 public void run() {
-                    eventTodo();
+                    eventTodo(this);
                 }
             };
         }
     }
 
-    private void eventTodo()
+    private void eventTodo(Runnable runs)
     {
         NotificationHandler nHandler = NotificationHandler.getInstance(getBaseContext());
         tvAlarmDT.setTextColor(Color.RED);
@@ -139,11 +162,23 @@ public class MainActivity extends AppCompatActivity
         Log.i(TAG, "eventTodo(), bgFlag: " + bgFlag);
 
         if (bgFlag) {
-            handler.removeCallbacks(runnable);
+
+            handler.removeCallbacks(runs);
         } else {
             Log.i(TAG, "run(), Alarm set !! ");
-            handler.postDelayed(runnable, ALRM_PERIOD);
+            //handler.postDelayed(runs, ALRM_PERIOD);
+            handler.postDelayed(runs, getAlarmPeriod());
         }
+    }
+
+    private long getAlarmPeriod()
+    {
+        return alarmPeriod;
+    }
+
+    private void setAlrmPeriod(long mPeriod)
+    {
+        alarmPeriod = mPeriod;
     }
 
 

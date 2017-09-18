@@ -43,6 +43,7 @@ public class NotificationHandler
         return nHandler;
     }
 
+    long notifiCounts = 0L;
     public void createSimpleNotification(Context context, boolean flag)
     {
         // Creates an explicit intent for an Activity
@@ -68,11 +69,13 @@ public class NotificationHandler
                 .setVibrate(new long[]{0, 5000, 50000, 5000});
                 //.setVibrate(new long[]{1000, 1000, 1000, 1000});
 
-        Log.d(TAG, "createSimpleNotification(), flag: " + flag);
+        notifiCounts++;
+        //Log.d(TAG, "createSimpleNotification(), flag: " + flag + ", notifiCounts: " +notifiCounts);
         if (flag)
         {
             // mId allows you to update the notification later on.
             mNotificationManager.notify(10, mBuilder.build());
+            Log.d(TAG, "flag: ture, notifiCounts: " + notifiCounts);
         }
         else
         {
@@ -80,6 +83,9 @@ public class NotificationHandler
             Notification notification = mBuilder.build();
             notification.flags |= Notification.FLAG_INSISTENT;
             mNotificationManager.notify(10, notification);
+            Log.d(TAG, "flag: false, notifiCounts: " + notifiCounts);
+            //mBuilder.build().flags |= Notification.FLAG_INSISTENT;
+            //mNotificationManager.notify(10,  mBuilder.build());
         }
     }
 
